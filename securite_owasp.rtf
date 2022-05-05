@@ -1,0 +1,206 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fmodern\fcharset0 CourierNewPSMT;\f1\fswiss\fcharset0 Helvetica;\f2\fmodern\fcharset0 CourierNewPS-BoldItalicMT;
+\f3\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f0\fs18 \cf2 <pre>\
+fastify.post("/user", async (request, reply) => \{\
+ validate(request.body, reply);\
+\
+ const foundCodeworker = await findAlreadyRegistered(\
+   request.body.codeWorkerEmail,\
+   codeworkers\
+ );\
+ checkEmail(foundCodeworker, reply);\
+\
+ const createdCodeWorker = await save(request.body, codeworkers);\
+ succeedOnCreation(createdCodeWorker, reply);
+\f1\fs22 \
+\}
+\f0\fs18 );\
+</pre>\
+\
+\
+<pre>\
+const \{ hash \} = require("../../../infrastructure/webserver/utils/bcrypt");\
+\
+module.exports = \{\
+ findAlreadyRegistered: async (email, codeworkers) => \{\
+   return await codeworkers.findOne(\{\
+     email,\
+   \});\
+ \},\
+ save: async (user, codeworkers) => \{\
+   return await codeworkers.insertOne(\{\
+     email: user.codeWorkerEmail,\
+     password: await hash(user.codeWorkerPassword),\
+     authority:
+\f1\fs22  "us
+\f0\fs18 er",\
+   \});\
+ \},\
+\};\
+</pre>\
+\
+\
+\
+<pre>\
+const \{ verify \} = require("../../../infrastructure/webserver/utils/bcrypt");\
+\
+module.exports = \{\
+ find: async (email, codeworkers) => \{\
+   return await codeworkers.findOne(\{\
+     email,\
+   \});\
+ \},\
+ checkPassword: async (userPassword, foundCodeworkerPassword) => \{\
+   if (!foundCodeworkerPassword) return false;\
+   return await 
+\f1 veri
+\f0 fy(userP
+\f1\fs22 assw
+\f0\fs18 ord, foundCo
+\f2\i\b deworke
+\f0\i0\b0 rPassword);\
+ \},\
+\};\
+</pre>\
+\
+\
+\
+<pre>\
+const bcrypt = require("bcrypt");\
+\
+module.exports = \{\
+ hash: (password) => \{\
+  
+\f2\i\b  retur
+\f0\i0\b0 n new Promise(async (resolve, reject) => \{\
+     await bcrypt.genSalt(10, async func
+\f2\i\b tion (
+\f0\i0\b0 err, salt) \{\
+       if (err) reject(err);\
+       await bcrypt.hash(password, salt, function (err, hash) \{\
+         if (err) reject(err);\
+         resolve(hash);\
+       \});\
+     \});\
+   \});\
+ \},\
+ verify: (password, has
+\f2\i\b h) => 
+\f0\i0\b0 \{\
+   return new Promise(async (resolve, reject) => \{\
+     await bcrypt.compare(password, hash, function (e
+\f1 r
+\f0 r, result) \{\
+       if
+\f1\fs22  (e
+\f3 rr) reject(err);\
+       resolve(result);\
+     \});\
+   \});\
+ \},\
+\};\
+</pre>\
+\
+\
+const Joi = require('joi');\
+\
+const schema = Joi.object(\{\
+    username: Joi.string()\
+        .alphanum()\
+        .min(3)\
+        .max(30)\
+        .required(),\
+\
+    password: Joi.string()\
+        .pattern(new RegExp('^[a-zA-Z0-9]\{3,30\}$')),\
+\
+    repeat_password: Joi.ref('password'),\
+\
+    access_token: [\
+        Joi.string(),\
+        Joi.number()\
+    ],\
+\
+    birth_year: Joi.number()\
+        .integer()\
+        .min(1900)\
+        .max(2013),\
+\
+    email: Joi.string()\
+        .email(\{ minDomainSegments: 2, tlds: \{ allow: ['com', 'net'] \} \})\
+\})\
+    .with('username', 'birth_year')\
+    .xor('password', 'access_token')\
+    .with('password', 'repeat_password');\
+\
+\
+schema.validate(\{ username: 'abc', birth_year: 1994 \});\
+// -> \{ value: \{ username: 'abc', birth_year: 1994 \} \}\
+\
+schema.validate(\{\});\
+// -> \{ value: \{\}, error: '"username" 
+\f1 is
+\f3  required' \}\
+\
+// A
+\f0\fs18 lso -
+\fs22 \
+\
+try
+\f2\i\b  \{\
+    c
+\f0\i0\b0 on
+\f2\i\b st value
+\f0\i0\b0  = await schema.validateAsync(\{ username: '
+\f2\i\b abc
+\f0\i0\b0 ', birth_year: 1994 \});\
+
+\f2\i\b \}\
+catch
+\f1\i0\b0  
+\f0 (err
+\fs18 ) \{ \}
+\f1\fs22 \
+\
+
+\f0\fs18 \
+\
+\
+<pre>\
+const userName = location.hash.match(/userName=([^^&]*)/)[1]\
+// ...\
+div.innerHTML += `Welcome $\{userName\}">`\
+</pre>\
+\
+\
+\
+<pre>\
+\{\
+ "env": \{\
+   "browser": true,\
+   "commonjs": true,\
+   "es2020": true\
+ \},\
+ "parserOptions": \{\
+   "ecmaVersion": 11\
+ \},\
+ "extends": "eslint:rec
+\f1\fs22 omm
+\fs24 \cf0 ended",\
+ "rules": \{\
+   "no-eval": "error",\
+   "no-implied-eval": "error",\
+   "no-new-func": "error",\
+   "eqeqeq": ["error", "always"]\
+ \}\
+\}\
+</pre>\
+\
+\
+}

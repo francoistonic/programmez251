@@ -1,0 +1,1499 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 CourierNewPS-ItalicMT;\f2\fmodern\fcharset0 CourierNewPSMT;
+\f3\fswiss\fcharset0 Helvetica-Oblique;}
+{\colortbl;\red255\green255\blue255;\red137\green221\blue255;\red166\green172\blue205;\red199\green146\blue234;
+\red130\green170\blue255;\red240\green113\blue120;\red195\green232\blue141;\red255\green156\blue172;\red247\green140\blue108;
+\red255\green203\blue107;\red103\green110\blue149;\red238\green255\blue255;\red117\green255\blue66;}
+{\*\expandedcolortbl;;\csgenericrgb\c53725\c86667\c100000;\csgenericrgb\c65098\c67451\c80392;\csgenericrgb\c78039\c57255\c91765;
+\csgenericrgb\c50980\c66667\c100000;\csgenericrgb\c94118\c44314\c47059;\csgenericrgb\c76471\c90980\c55294;\csgenericrgb\c100000\c61176\c67451;\csgenericrgb\c96863\c54902\c42353;
+\csgenericrgb\c100000\c79608\c41961;\csgenericrgb\c40392\c43137\c58431;\csgenericrgb\c93333\c100000\c100000;\csgenericrgb\c45882\c100000\c25882;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab708
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\f0\fs22 \cf0 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f1\i\fs27 \cf2 export
+\f2\i0 \cf3  \cf4 async\cf3  \cf4 function\cf3  \cf5 getProducts\cf2 ()\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf4 const\cf6  
+\f0 \cf2 \{
+\f2 \cf6  \cf3 catalogApi\cf6  
+\f0 \cf2 \}
+\f2 \cf6  \cf2 =\cf6  \cf3 client\cf2 ;\
+\cf6  
+\f1\i \cf2 try
+\f2\i0 \cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6    \cf4 const\cf6  
+\f0 \cf2 \{
+\f2 \cf6  \cf3 result\cf2 :\cf6  
+\f0 \cf2 \{
+\f2 \cf6  \cf3 objects
+\f0 \cf2 ,
+\f2 \cf6  \cf3 relatedObjects\cf6  
+\f0 \cf2 \}\}
+\f2 \cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf3 catalogApi
+\f0 \cf2 .
+\f2 \cf5 searchCatalogObjects\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf3 objectTypes\cf2 :\cf6  [\
+       \cf2 '\cf7 ITEM\cf2 '\
+\cf6      ]
+\f0 \cf2 ,\
+
+\f2 \cf6      \cf3 includeRelatedObjects\cf2 :\cf6  \cf8 true\
+\cf6    
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6    \cf4 const\cf6  \cf3 images\cf6  \cf2 =\cf6  \cf3 relatedObjects
+\f0 \cf2 .
+\f2 \cf5 filter\cf6 (\cf3 object\cf6  \cf4 =>\cf6  \cf3 object
+\f0 \cf2 .
+\f2 \cf3 type\cf6  \cf2 ===\cf6  \cf2 '\cf7 IMAGE\cf2 '\cf6 )\cf2 ;\
+\cf6    \cf4 const\cf6  \cf3 items\cf6  \cf2 =\cf6  \cf3 objects
+\f0 \cf2 .
+\f2 \cf5 filter\cf6 (\cf3 object\cf6  \cf4 =>\cf6  \cf3 object
+\f0 \cf2 .
+\f2 \cf3 type\cf6  \cf2 ===\cf6  \cf2 '\cf7 ITEM\cf2 '\cf6 )\cf2 ;\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6    \cf4 const\cf6  \cf3 products\cf6  \cf2 =\cf6  \cf3 items
+\f0 \cf2 .
+\f2 \cf5 map\cf6 (\cf3 object\cf6  \cf4 =>\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf4 const\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 imageId
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 itemData\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6          \cf3 name
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 description
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 variations
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 categoryIds
+\f0 \cf2 ,\
+
+\f2 \cf6        
+\f0 \cf2 \}\
+
+\f2 \cf6      
+\f0 \cf2 \}
+\f2 \cf6  \cf2 =\cf6  \cf3 object\cf2 ;\
+\cf6      \cf4 const\cf6  \cf3 imageUrl\cf6  \cf2 =\cf6  \cf3 images
+\f0 \cf2 .
+\f2 \cf5 find\cf6 (\cf3 image\cf6  \cf4 =>\cf6  \cf3 image
+\f0 \cf2 .
+\f2 \cf3 id\cf6  \cf2 ===\cf6  \cf3 imageId\cf6 )
+\f0 \cf2 .
+\f2 \cf3 imageData\cf2 ?.\cf3 url\cf2 ;\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6      
+\f1\i \cf2 return
+\f2\i0 \cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 name
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 description
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 imageUrl
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 variations
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 categoryIds\
+\cf6      
+\f0 \cf2 \}\
+
+\f2 \cf6    
+\f0 \cf2 \}
+\f2 \cf6 )\
+   
+\f1\i \cf2 return
+\f2\i0 \cf6  \cf3 JSON
+\f0 \cf2 .
+\f2 \cf5 parse\cf6 (\cf3 JSON
+\f0 \cf2 .
+\f2 \cf5 stringify\cf6 (\cf3 products\cf6 ))\cf2 ;\
+\cf6  
+\f0 \cf2 \}
+\f2 \cf6  
+\f1\i \cf2 catch
+\f2\i0 \cf6  (\cf3 e\cf6 ) 
+\f0 \cf2 \{\
+
+\f2 \cf6    \cf3 console
+\f0 \cf2 .
+\f2 \cf5 error\cf6 (\cf3 e\cf6 )\cf2 ;\
+\cf6    
+\f1\i \cf2 throw
+\f2\i0 \cf6  \cf3 e\cf2 ;\
+\cf6  
+\f0 \cf2 \}\
+\}\
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\fs22 \cf0 \
+\
+\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2\fs27 \cf2 import\cf3  
+\f0 \cf2 \{
+\f2 \cf6  \cf3 formatCurrency\cf6  
+\f0 \cf2 \}
+\f2 \cf3  \cf2 from\cf3  \cf2 "\cf7 ../utils/formatting\cf2 ";\
+import\cf3  Link \cf2 from\cf3  \cf2 '\cf7 next/link\cf2 '\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2 export\cf3  \cf2 default\cf3  \cf4 function\cf3  \cf5 ProductList\cf2 (\{\cf3  products 
+\f0 \cf2 \}
+\f2 )\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf2 return\cf6  (\cf3 products
+\f0 \cf2 .
+\f2 \cf3 length\cf6  \cf2 !==\cf6  
+\f0 \cf9 0
+\f2 \cf6 ) \cf2 ?\cf6  (\
+   \cf2 <\cf6 div\cf2  \cf4 className\cf2 ="\cf7 bg-white\cf2 ">\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3      \cf2 <\cf6 div\cf2  \cf4 className\cf2 ="\cf7 max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8\cf2 ">\
+\cf3        \cf2 <\cf6 h2\cf2  \cf4 className\cf2 ="\cf7 sr-only\cf2 ">\cf3 Products\cf2 </\cf6 h2\cf2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf3        \cf2 <\cf6 div\cf2  \cf4 className\cf2 ="\cf7 grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8\cf2 ">\
+\cf3          
+\f0 \cf2 \{
+\f2 \cf3 products
+\f0 \cf2 .
+\f2 \cf5 map\cf3 (\cf2 (\cf3 product\cf2 )\cf3  \cf4 =>\cf3  (\
+           \cf2 <\cf6 div\cf2  \cf4 key\cf2 =\{\cf3 product
+\f0 \cf2 .
+\f2 \cf3 variations[
+\f0 \cf9 0
+\f2 \cf3 ]
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 \}
+\f2  \cf4 className\cf2 ="\cf7 group\cf2 ">\
+\cf3              \cf2 <\cf10 Link\cf2  \cf4 href\cf2 =\{\cf3 product
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 \}
+\f2  \cf4 className\cf2 ="\cf7 group\cf2 ">\
+\cf3                \cf2 <\cf6 div\cf2  \cf4 className\cf2 ="\cf7 w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8\cf2 ">\
+\cf3                  \cf2 <\cf6 img\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf2                    \cf4 src\cf2 =\{\cf3 product
+\f0 \cf2 .
+\f2 \cf3 imageUrl
+\f0 \cf2 \}\
+
+\f2                    \cf4 alt\cf2 =\{\cf3 product
+\f0 \cf2 .
+\f2 \cf3 description
+\f0 \cf2 \}\
+
+\f2                    \cf4 className\cf2 ="\cf7 w-full h-full object-center object-cover group-hover:opacity-75\cf2 "\
+                 />\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3                \cf2 </\cf6 div\cf2 >\
+\cf3              \cf2 </\cf10 Link\cf2 >\
+\cf3              \cf2 <\cf6 h3\cf2  \cf4 className\cf2 ="\cf7 mt-4 text-sm text-gray-700\cf2 ">\{\cf3 product
+\f0 \cf2 .
+\f2 \cf3 name
+\f0 \cf2 \}
+\f2 </\cf6 h3\cf2 >\
+\cf3              \cf2 <\cf6 p\cf2  \cf4 className\cf2 ="\cf7 mt-1 text-lg font-medium text-gray-900\cf2 ">\{\cf5 formatCurrency\cf3 (product
+\f0 \cf2 .
+\f2 \cf3 variations[
+\f0 \cf9 0
+\f2 \cf3 ]
+\f0 \cf2 .
+\f2 \cf3 itemVariationData
+\f0 \cf2 .
+\f2 \cf3 priceMoney
+\f0 \cf2 .
+\f2 \cf3 amount)
+\f0 \cf2 \}
+\f2 </\cf6 p\cf2 >\
+\cf3            \cf2 </\cf6 div\cf2 >\
+\cf3          ))
+\f0 \cf2 \}\
+
+\f2 \cf3        \cf2 </\cf6 div\cf2 >\
+\cf3      \cf2 </\cf6 div\cf2 >\
+\cf3    \cf2 </\cf6 div\cf2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf6  ) \cf2 :\cf6  \cf2 <\cf6 span\cf2 >\cf3 Loading\cf2 </\cf6 span\cf2 >\
+\}\
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\f0\fs22 \cf0 \
+\
+\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f1\i\fs27 \cf2 import
+\f2\i0 \cf3  React
+\f0 \cf2 ,
+\f2 \cf3  
+\f0 \cf2 \{
+\f2 \cf3 useEffect
+\f0 \cf2 ,
+\f2 \cf6  \cf3 useState
+\f0 \cf2 \}
+\f2 \cf3  
+\f1\i \cf2 from
+\f2\i0 \cf3  \cf2 '\cf7 react\cf2 ';\
+
+\f1\i import
+\f2\i0 \cf3  
+\f0 \cf2 \{
+\f2 \cf3 Image
+\f0 \cf2 ,
+\f2 \cf6  \cf3 Text
+\f0 \cf2 ,
+\f2 \cf6  \cf3 TouchableOpacity
+\f0 \cf2 ,
+\f2 \cf6  \cf3 View
+\f0 \cf2 \}
+\f2 \cf3  
+\f1\i \cf2 from
+\f2\i0 \cf3  \cf2 '\cf7 react-native\cf2 ';\
+
+\f1\i import
+\f2\i0 \cf3  tailwind 
+\f1\i \cf2 from
+\f2\i0 \cf3  \cf2 '\cf7 tailwind-rn\cf2 ';\
+
+\f1\i import
+\f2\i0 \cf3  
+\f0 \cf2 \{
+\f2 \cf3 formatCurrency
+\f0 \cf2 \}
+\f2 \cf3  
+\f1\i \cf2 from
+\f2\i0 \cf3  \cf2 '\cf7 ../../utils/utils\cf2 ';\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f1\i \cf2 export
+\f2\i0 \cf3  
+\f1\i \cf2 default
+\f2\i0 \cf3  \cf4 function\cf3  \cf5 ProductList\cf2 (\{\cf3 navigation
+\f0 \cf2 ,
+\f2 \cf3  route
+\f0 \cf2 \}
+\f2 )\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf4 const\cf6  \cf2 [\cf3 products
+\f0 \cf2 ,
+\f2 \cf6  \cf5 setProducts\cf2 ]\cf6  \cf2 =\cf6  \cf5 useState\cf6 ([])\cf2 ;\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf5 useEffect\cf6 (\cf2 ()\cf6  \cf4 =>\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6    \cf5 fetchProducts\cf6 ()\cf2 ;\
+\cf6  
+\f0 \cf2 \},
+\f2 \cf6  [])\cf2 ;\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf4 const\cf6  \cf5 fetchProducts\cf6  \cf2 =\cf6  \cf4 async\cf6  \cf2 ()\cf6  \cf4 =>\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6    \cf4 const\cf6  \cf3 res\cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf5 fetch\cf6 (\cf2 '\cf7 http://localhost:3000/api/square/catalog\cf2 '\cf6 )\cf2 ;\
+\cf6    \cf4 const\cf6  \cf3 catalogProducts\cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf3 res
+\f0 \cf2 .
+\f2 \cf5 json\cf6 ()\cf2 ;\
+\cf6    \cf3 console
+\f0 \cf2 .
+\f2 \cf5 log\cf6 (\cf3 catalogProducts\cf6 )\cf2 ;\
+\cf6    \cf5 setProducts\cf6 (\cf3 catalogProducts\cf6 )\cf2 ;\
+\cf6  
+\f0 \cf2 \}
+\f2 ;\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  
+\f1\i \cf2 return
+\f2\i0 \cf6  \cf3 products
+\f0 \cf2 .
+\f2 \cf3 length\cf6  \cf2 !==\cf6  
+\f0 \cf9 0
+\f2 \cf6  \cf2 ?\cf6  (\
+   \cf2 <\cf10 View\cf2  \cf4 style\cf2 =\{\cf5 tailwind\cf3 (\cf2 '\cf7 bg-white\cf2 '\cf3 )
+\f0 \cf2 \}
+\f2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3      \cf2 <\cf10 View\cf2  \cf4 style\cf2 =\{\cf5 tailwind\cf3 (\cf2 '\cf7 max-w-2xl py-16 px-4\cf2 '\cf3 )
+\f0 \cf2 \}
+\f2 >\
+\cf3        \cf2 <\cf10 View\cf2  \cf4 style\cf2 =\{\cf5 tailwind\cf3 (\cf2 '\cf7 flex\cf2 '\cf3 )
+\f0 \cf2 \}
+\f2 >\
+\cf3          
+\f0 \cf2 \{
+\f2 \cf3 products
+\f0 \cf2 .
+\f2 \cf5 map\cf3 (product \cf4 =>\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6            
+\f1\i \cf2 return
+\f2\i0 \cf6  (\
+             \cf2 <\cf10 View\cf2  \cf4 key\cf2 =\{\cf3 product
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 \}
+\f2  \cf4 style\cf2 =\{\cf5 tailwind\cf3 (\cf2 ''\cf3 )
+\f0 \cf2 \}
+\f2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3                \cf2 <\cf10 TouchableOpacity\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf2                  \cf4 style\cf2 =\{\cf5 tailwind\cf3 (\cf2 '\cf7 w-full rounded-lg overflow-hidden\cf2 '\cf3 )
+\f0 \cf2 \}\
+
+\f2                  \cf4 onPress\cf2 =\{()\cf3  \cf4 =>\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6                    \cf3 navigation
+\f0 \cf2 .
+\f2 \cf5 navigate\cf6 (\cf2 '\cf7 Checkout\cf2 ',\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6                      \cf3 product
+\f0 \cf2 ,\
+
+\f2 \cf6                    
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6                  
+\f0 \cf2 \}\}
+\f2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3                  \cf2 <\cf10 Image\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf2                    \cf4 source\cf2 =\{\{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3                      uri\cf2 :\cf3  product
+\f0 \cf2 .
+\f2 \cf3 imageUrl
+\f0 \cf2 ,\
+
+\f2 \cf3                    
+\f0 \cf2 \}\}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2                    \cf4 alt\cf2 =\{\cf3 product
+\f0 \cf2 .
+\f2 \cf3 description
+\f0 \cf2 \}\
+
+\f2                    \cf4 style\cf2 =\{\cf5 tailwind\cf3 (\cf2 '\cf7 w-full h-64\cf2 '\cf3 )
+\f0 \cf2 \}\
+
+\f2                  />\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3                \cf2 </\cf10 TouchableOpacity\cf2 >\
+\cf3                \cf2 <\cf10 Text\cf2  \cf4 style\cf2 =\{\cf5 tailwind\cf3 (\cf2 '\cf7 mt-4 text-sm text-gray-700\cf2 '\cf3 )
+\f0 \cf2 \}
+\f2 >\
+\cf3                  
+\f0 \cf2 \{
+\f2 \cf3 product
+\f0 \cf2 .
+\f2 \cf3 name
+\f0 \cf2 \}\
+
+\f2 \cf3                \cf2 </\cf10 Text\cf2 >\
+\cf3                \cf2 <\cf10 Text\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf2                  \cf4 style\cf2 =\{\cf5 tailwind\cf3 (\cf2 '\cf7 mt-1 text-lg font-medium text-gray-900\cf2 '\cf3 )
+\f0 \cf2 \}
+\f2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3                  
+\f0 \cf2 \{
+\f2 \cf5 formatCurrency\cf3 (\
+                   product
+\f0 \cf2 .
+\f2 \cf3 variations[
+\f0 \cf9 0
+\f2 \cf3 ]
+\f0 \cf2 .
+\f2 \cf3 itemVariationData
+\f0 \cf2 .
+\f2 \cf3 priceMoney
+\f0 \cf2 .
+\f2 \cf3 amount
+\f0 \cf2 ,\
+
+\f2 \cf3                  )
+\f0 \cf2 \}\
+
+\f2 \cf3                \cf2 </\cf10 Text\cf2 >\
+\cf3              \cf2 </\cf10 View\cf2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf6            )\cf2 ;\
+\cf6          
+\f0 \cf2 \}
+\f2 \cf3 )
+\f0 \cf2 \}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf3        \cf2 </\cf10 View\cf2 >\
+\cf3      \cf2 </\cf10 View\cf2 >\
+\cf3    \cf2 </\cf10 View\cf2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf6  ) \cf2 :\cf6  (\
+   \cf2 <\cf10 Text\cf2 >\cf3 Loading\cf2 </\cf10 Text\cf2 >\
+\cf6  )\cf2 ;\
+\}
+\f3\i\fs24 \
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\f0\i0\fs22 \cf0 \
+\
+\
+\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f1\i\fs27 \cf2 import
+\f2\i0 \cf3  React 
+\f1\i \cf2 from
+\f2\i0 \cf3  \cf2 '\cf7 react\cf2 ';\
+
+\f1\i import
+\f2\i0 \cf3  
+\f0 \cf2 \{
+\f2 \cf3 Platform
+\f0 \cf2 ,
+\f2 \cf6  \cf3 Text
+\f0 \cf2 ,
+\f2 \cf6  \cf3 TouchableOpacity
+\f0 \cf2 \}
+\f2 \cf3  
+\f1\i \cf2 from
+\f2\i0 \cf3  \cf2 '\cf7 react-native\cf2 ';\
+
+\f1\i import
+\f2\i0 \cf3  
+\f0 \cf2 \{
+\f2 \cf3 SQIPCardEntry
+\f0 \cf2 \}
+\f2 \cf3  
+\f1\i \cf2 from
+\f2\i0 \cf3  \cf2 '\cf7 react-native-square-in-app-payments\cf2 ';\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf4 const\cf3  iOSCardEntryTheme \cf2 =\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf3  saveButtonFont\cf2 :\cf3  
+\f0 \cf2 \{\
+
+\f2 \cf3    size\cf2 :\cf3  \cf9 30
+\f0 \cf2 ,\
+
+\f2 \cf3  
+\f0 \cf2 \},\
+
+\f2 \cf3  saveButtonTitle\cf2 :\cf3  \cf2 '\cf7 Pay\cf2 ',\
+\cf3  keyboardAppearance\cf2 :\cf3  \cf2 '\cf7 Light\cf2 ',\
+\};\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f1\i \cf2 export
+\f2\i0 \cf3  \cf4 function\cf3  \cf5 SquarePay\cf2 (\{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3  textStyle
+\f0 \cf2 ,\
+
+\f2 \cf3  buttonStyle
+\f0 \cf2 ,\
+
+\f2 \cf3  buttonText
+\f0 \cf2 ,\
+
+\f2 \cf3  product
+\f0 \cf2 ,\
+
+\f2 \cf3  customer
+\f0 \cf2 ,\
+\}
+\f2 )\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf4 function\cf6  \cf5 startCardFlow\cf2 ()\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6    \cf4 const\cf6  \cf3 cardEntryConfig\cf6  \cf2 =\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf3 collectPostalCode\cf2 :\cf6  \cf8 false
+\f0 \cf2 ,\
+
+\f2 \cf6    
+\f0 \cf2 \}
+\f2 ;\
+\cf6    
+\f1\i \cf2 if
+\f2\i0 \cf6  (\cf3 Platform
+\f0 \cf2 .
+\f2 \cf3 OS\cf6  \cf2 ===\cf6  \cf2 '\cf7 ios\cf2 '\cf6 ) 
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf10 SQIPCardEntry
+\f0 \cf2 .
+\f2 \cf5 setIOSCardEntryTheme\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6        
+\f0 \cf2 ...
+\f2 \cf3 iOSCardEntryTheme
+\f0 \cf2 ,\
+
+\f2 \cf6      
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6    
+\f0 \cf2 \}\
+
+\f2 \cf6    \cf10 SQIPCardEntry
+\f0 \cf2 .
+\f2 \cf5 startCardEntryFlow\cf6 (\
+     \cf3 cardEntryConfig
+\f0 \cf2 ,\
+
+\f2 \cf6      \cf5 onCardNonceRequestSuccess
+\f0 \cf2 ,\
+
+\f2 \cf6      \cf5 onCardEntryCancel
+\f0 \cf2 ,\
+
+\f2 \cf6    )
+\f0 \cf2 .
+\f2 \cf5 then\cf6 ()\cf2 ;\
+\cf6  
+\f0 \cf2 \}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf4 function\cf6  \cf5 onCardEntryComplete\cf2 ()\cf6  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2    
+\f1\i \cf11 // mettre \'e0 jour l\'92interface pour notifier l'utilisateur que le paiement a \'e9t\'e9 compl\'e9t\'e9 avec succ\'e8s.
+\f0\i0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  
+\f0 \cf2 \}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf4 function\cf6  \cf5 onCardEntryCancel\cf2 ()\cf6  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2    
+\f1\i \cf11 // Manage the callback d\'92annulation\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2\i0 \cf6  
+\f0 \cf2 \}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  \cf4 async\cf6  \cf4 function\cf6  \cf5 onCardNonceRequestSuccess\cf2 (\cf3 cardDetails\cf2 )\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6    
+\f1\i \cf2 try
+\f2\i0 \cf6  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2      
+\f1\i \cf11 // prendre le paiement avec les d\'e9tails de la carte\
+
+\f2\i0 \cf2      
+\f1\i \cf11 // attendre chargeCard(cardDetails);\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2\i0 \cf6      \cf4 const\cf6  \cf3 resp\cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf5 fetch\cf6 (\cf2 '\cf7 http://localhost:3000/api/square/pay\cf2 ',\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 method\cf2 :\cf6  \cf2 '\cf7 POST\cf2 ',\
+\cf6        \cf3 headers\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6          \cf2 '\cf6 Content-Type\cf2 ':\cf6  \cf2 '\cf7 application/json\cf2 ',\
+\cf6        
+\f0 \cf2 \},\
+
+\f2 \cf6        \cf3 body\cf2 :\cf6  \cf3 JSON
+\f0 \cf2 .
+\f2 \cf5 stringify\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6          \cf3 locationId\cf2 :\cf6  \cf2 '\cf7 9PKBD3JCQFH0D\cf2 ',\
+\cf6          \cf3 sourceId\cf2 :\cf6  \cf3 cardDetails
+\f0 \cf2 .
+\f2 \cf3 nonce
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 customer\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6            
+\f0 \cf2 ...
+\f2 \cf3 customer
+\f0 \cf2 ,\
+
+\f2 \cf6          
+\f0 \cf2 \},\
+
+\f2 \cf6          \cf3 order\cf2 :\cf6  [\
+           
+\f0 \cf2 \{\
+
+\f2 \cf6              \cf3 itemId\cf2 :\cf6  \cf3 product
+\f0 \cf2 .
+\f2 \cf3 variations\cf6 [
+\f0 \cf9 0
+\f2 \cf6 ]
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6              \cf3 quantity\cf2 :\cf6  \cf2 '\cf7 1\cf2 ',\
+\cf6            
+\f0 \cf2 \},\
+
+\f2 \cf6          ]
+\f0 \cf2 ,\
+
+\f2 \cf6        
+\f0 \cf2 \}
+\f2 \cf6 )
+\f0 \cf2 ,\
+
+\f2 \cf6      
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6      \cf4 const\cf6  \cf3 data\cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf3 resp
+\f0 \cf2 .
+\f2 \cf5 json\cf6 ()\cf2 ;\
+\cf6      \cf3 console
+\f0 \cf2 .
+\f2 \cf5 info\cf6 (\cf3 data\cf6 )\cf2 ;\
+     
+\f1\i \cf11 // Paiement complet
+\f3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2\i0 \cf2      
+\f1\i \cf11 // vous devez appeler cette m\'e9thode pour compl\'e9ter l'entr\'e9e de la carte\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2\i0 \cf6      
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf10 SQIPCardEntry
+\f0 \cf2 .
+\f2 \cf5 completeCardEntry\cf6 (\cf5 onCardEntryComplete\cf6 ())\cf2 ;\
+\cf6    
+\f0 \cf2 \}
+\f2 \cf6  
+\f1\i \cf2 catch
+\f2\i0 \cf6  (\cf3 ex\cf6 ) 
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2      
+\f1\i \cf11 // Le paiement n\'92a pas \'e9t\'e9 compl\'e8te \'e0 cause d\'92une erreur\
+
+\f2\i0 \cf2      
+\f1\i \cf11 // Envoyer une notification pour avertir d\'92une erreur\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2\i0 \cf6      
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf10 SQIPCardEntry
+\f0 \cf2 .
+\f2 \cf5 showCardNonceProcessingError\cf6 (\cf3 ex
+\f0 \cf2 .
+\f2 \cf3 message\cf6 )\cf2 ;\
+\cf6    
+\f0 \cf2 \}\
+
+\f2 \cf6  
+\f0 \cf2 \}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  
+\f1\i \cf2 return
+\f2\i0 \cf6  (\
+   \cf2 <\cf10 TouchableOpacity\cf2  \cf4 style\cf2 =\{\cf3 buttonStyle
+\f0 \cf2 \}
+\f2  \cf4 onPress\cf2 =\{\cf5 startCardFlow
+\f0 \cf2 \}
+\f2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3      \cf2 <\cf10 Text\cf2  \cf4 style\cf2 =\{\cf3 textStyle
+\f0 \cf2 \}
+\f2 >\{\cf3 buttonText
+\f0 \cf2 \}
+\f2 </\cf10 Text\cf2 >\
+\cf3    \cf2 </\cf10 TouchableOpacity\cf2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf6  )\cf2 ;\
+\}
+\f3\i \
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\f0\i0\fs22 \cf0 \
+\
+\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2\fs27 \cf2 <\cf10 SquarePaymentsForm\
+\cf2  \cf4 applicationId\cf2 ="\cf7 sandbox-sq0idb-B-i4MbEZEARTWqSj7Gs9Ww\cf2 "\
+ \cf4 locationId\cf2 ="\cf7 9PKBD3JCQFH0D\cf2 "\
+ \cf4 cardTokenizeResponseReceived\cf2 =\{\cf4 async\cf3  \cf2 (\cf3 token
+\f0 \cf2 ,
+\f2 \cf3  buyer\cf2 )\cf3  \cf4 =>\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6    
+\f1\i \cf2 if
+\f2\i0 \cf6  (\cf3 token
+\f0 \cf2 .
+\f2 \cf3 details
+\f0 \cf2 .
+\f2 \cf3 method\cf6  \cf2 ===\cf6  \cf2 "\cf7 Google Pay\cf2 "\cf6 ) 
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf5 setCustomer\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6        
+\f0 \cf2 ...
+\f2 \cf3 token
+\f0 \cf2 .
+\f2 \cf3 details
+\f0 \cf2 .
+\f2 \cf3 billing
+\f0 \cf2 ,\
+
+\f2 \cf6      
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6    
+\f0 \cf2 \}\
+
+\f2 \cf6    \cf4 const\cf6  \cf3 resp\cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf5 fetch\cf6 (\cf2 "\cf7 /api/square/pay\cf2 ",\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf3 method\cf2 :\cf6  \cf2 "\cf7 POST\cf2 ",\
+\cf6      \cf3 headers\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf2 "\cf6 Content-Type\cf2 ":\cf6  \cf2 "\cf7 application/json\cf2 ",\
+\cf6      
+\f0 \cf2 \},\
+
+\f2 \cf6      \cf3 body\cf2 :\cf6  \cf3 JSON
+\f0 \cf2 .
+\f2 \cf5 stringify\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 locationId\cf2 :\cf6  \cf2 "\cf7 9PKBD3JCQFH0D\cf2 ",\
+\cf6        \cf3 sourceId\cf2 :\cf6  \cf3 token
+\f0 \cf2 .
+\f2 \cf3 token
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 customer\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6          
+\f0 \cf2 ...
+\f2 \cf3 customer
+\f0 \cf2 ,\
+
+\f2 \cf6        
+\f0 \cf2 \},\
+
+\f2 \cf6        \cf3 order\cf2 :\cf6  [\
+         
+\f0 \cf2 \{\
+
+\f2 \cf6            \cf3 itemId\cf2 :\cf6  \cf3 product
+\f0 \cf2 .
+\f2 \cf3 variations\cf6 [
+\f0 \cf9 0
+\f2 \cf6 ]
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6            \cf3 quantity\cf2 :\cf6  \cf2 "\cf7 1\cf2 ",\
+\cf6          
+\f0 \cf2 \},\
+
+\f2 \cf6        ]
+\f0 \cf2 ,\
+
+\f2 \cf6      
+\f0 \cf2 \}
+\f2 \cf6 )
+\f0 \cf2 ,\
+
+\f2 \cf6    
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6    \cf4 const\cf6  \cf3 data\cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf3 resp
+\f0 \cf2 .
+\f2 \cf5 json\cf6 ()\cf2 ;\
+\cf6    \cf3 console
+\f0 \cf2 .
+\f2 \cf5 info\cf6 (\cf3 data\cf6 )\cf2 ;\
+\cf6    \cf3 router
+\f0 \cf2 .
+\f2 \cf5 push\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf3 pathname\cf2 :\cf6  \cf2 "\cf7 /checkout/success\cf2 ",\
+\cf6      \cf3 query\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 customerId\cf2 :\cf6  \cf3 data
+\f0 \cf2 .
+\f2 \cf3 customer
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 orderId\cf2 :\cf6  \cf3 data
+\f0 \cf2 .
+\f2 \cf3 order
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6      
+\f0 \cf2 \},\
+
+\f2 \cf6    
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6  
+\f0 \cf2 \}\}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2  \cf4 createPaymentRequest\cf2 =\{()\cf3  \cf4 =>\cf3  (
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf3    countryCode\cf2 :\cf3  \cf2 "\cf7 US\cf2 ",\
+\cf3    currencyCode\cf2 :\cf3  \cf2 "\cf7 USD\cf2 ",\
+\cf3    requestBillingContact\cf2 :\cf3  \cf8 true
+\f0 \cf2 ,\
+
+\f2 \cf3    total\cf2 :\cf3  
+\f0 \cf2 \{\
+
+\f2 \cf3      amount\cf2 :\cf3  (\
+       product
+\f0 \cf2 .
+\f2 \cf3 variations[
+\f0 \cf9 0
+\f2 \cf3 ]
+\f0 \cf2 .
+\f2 \cf3 itemVariationData
+\f0 \cf2 .
+\f2 \cf3 priceMoney
+\f0 \cf2 .
+\f2 \cf3 amount \cf2 /\cf3  \cf9 100\
+\cf3      )
+\f0 \cf2 .
+\f2 \cf5 toString\cf3 ()
+\f0 \cf2 ,\
+
+\f2 \cf3      label\cf2 :\cf3  \cf2 "\cf7 Total\cf2 ",\
+\cf3    
+\f0 \cf2 \},\
+
+\f2 \cf3  
+\f0 \cf2 \}
+\f2 \cf3 )
+\f0 \cf2 \}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2 >\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3  \cf2 <\cf10 CreditCardInput\cf2  />\
+\cf3  \cf2 <\cf10 GooglePay\cf2  />\
+\pard\pardeftab708\ri-3940\sl333\slmult1\partightenfactor0
+\cf2  <\cf10 ApplePay\cf2  />\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf2 </\cf10 SquarePaymentsForm\cf2 >;\
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\f0\fs22 \cf0 \
+\
+\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f1\i\fs27 \cf2 export
+\f2\i0 \cf3  
+\f1\i \cf2 default
+\f2\i0 \cf3  \cf4 async\cf3  \cf4 function\cf3  \cf5 handler\cf2 (\cf3 req
+\f0 \cf2 ,
+\f2 \cf3  res\cf2 )\cf3  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6  
+\f1\i \cf2 if
+\f2\i0 \cf6  (\cf3 req
+\f0 \cf2 .
+\f2 \cf3 method\cf6  \cf2 ===\cf6  \cf2 '\cf7 POST\cf2 '\cf6 ) 
+\f0 \cf2 \{\
+
+\f2 \cf6    \cf3 console
+\f0 \cf2 .
+\f2 \cf5 log\cf6 (\cf3 req
+\f0 \cf2 .
+\f2 \cf3 body\cf6 )\cf2 ;\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6    \cf4 const\cf6  
+\f0 \cf2 \{
+\f2 \cf6  \cf3 customer
+\f0 \cf2 ,
+\f2 \cf6  \cf3 sourceId
+\f0 \cf2 ,
+\f2 \cf6  \cf3 order
+\f0 \cf2 ,
+\f2 \cf6  \cf3 locationId\cf6  
+\f0 \cf2 \}
+\f2 \cf6  \cf2 =\cf6  \cf3 req
+\f0 \cf2 .
+\f2 \cf3 body\cf2 ;\
+\cf6    
+\f1\i \cf2 try
+\f2\i0 \cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf4 const\cf6  
+\f0 \cf2 \{
+\f2 \cf6  \cf3 result\cf2 :\cf6  
+\f0 \cf2 \{
+\f2 \cf3 customer\cf2 :\cf6  \cf3 newCustomer
+\f0 \cf2 \}
+\f2 \cf6  
+\f0 \cf2 \}
+\f2 \cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf3 customersApi
+\f0 \cf2 .
+\f2 \cf5 createCustomer\cf6 (\cf3 customer\cf6 )\cf2 ;\
+\cf6      \cf4 const\cf6  
+\f0 \cf2 \{
+\f2 \cf6  \cf3 result\cf2 :\cf6  
+\f0 \cf2 \{
+\f2 \cf3 order\cf2 :\cf6  \cf3 newOrder
+\f0 \cf2 \}
+\f2 \cf6  
+\f0 \cf2 \}
+\f2 \cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf3 ordersApi
+\f0 \cf2 .
+\f2 \cf5 createOrder\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 idempotencyKey\cf2 :\cf6  \cf5 randomUUID\cf6 ()
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 order\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6          \cf3 locationId
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 customerId\cf2 :\cf6  \cf3 newCustomer
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 lineItems\cf2 :\cf6  \cf3 order
+\f0 \cf2 .
+\f2 \cf5 map\cf6 (\cf2 (\{\cf6  \cf3 itemId
+\f0 \cf2 ,
+\f2 \cf6  \cf3 quantity\cf6  
+\f0 \cf2 \}
+\f2 )\cf6  \cf4 =>\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6            
+\f1\i \cf2 return
+\f2\i0 \cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6              \cf3 catalogObjectId\cf2 :\cf6  \cf3 itemId
+\f0 \cf2 ,\
+
+\f2 \cf6              \cf3 quantity
+\f0 \cf2 ,\
+
+\f2 \cf6            
+\f0 \cf2 \}\
+
+\f2 \cf6          
+\f0 \cf2 \}
+\f2 \cf6 )
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 fulfillments\cf2 :\cf6  [\
+           
+\f0 \cf2 \{\
+
+\f2 \cf6              \cf3 type\cf2 :\cf6  \cf2 '\cf7 PICKUP\cf2 ',\
+\cf6              \cf3 pickupDetails\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6                \cf3 recipient\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6                  \cf3 customerId\cf2 :\cf6  \cf3 newCustomer
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6                
+\f0 \cf2 \},\
+
+\f2 \cf6                \cf3 pickupAt\cf2 :\cf6  \cf2 new\cf6  \cf10 Date\cf6 (\cf10 Date
+\f0 \cf2 .
+\f2 \cf5 now\cf6 ())
+\f0 \cf2 .
+\f2 \cf5 toISOString\cf6 ()
+\f0 \cf2 ,\
+
+\f2 \cf6                \cf3 scheduleType\cf2 :\cf6  \cf2 '\cf7 ASAP\cf2 ',\
+\cf6              
+\f0 \cf2 \}\
+
+\f2 \cf6            
+\f0 \cf2 \}\
+
+\f2 \cf6          ]\
+       
+\f0 \cf2 \}\
+
+\f2 \cf6      
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6      \cf4 const\cf6  
+\f0 \cf2 \{
+\f2 \cf6  \cf3 result\cf2 :\cf6  
+\f0 \cf2 \{
+\f2 \cf3 payment\cf2 :\cf6  \cf3 newPayment
+\f0 \cf2 \}
+\f2 \cf6  
+\f0 \cf2 \}
+\f2 \cf6  \cf2 =\cf6  
+\f1\i \cf2 await
+\f2\i0 \cf6  \cf3 paymentsApi
+\f0 \cf2 .
+\f2 \cf5 createPayment\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 idempotencyKey\cf2 :\cf6  \cf5 randomUUID\cf6 ()
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 amountMoney\cf2 :\cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6          \cf3 amount\cf2 :\cf6  \cf3 newOrder
+\f0 \cf2 .
+\f2 \cf3 totalMoney
+\f0 \cf2 .
+\f2 \cf3 amount
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 currency\cf2 :\cf6  \cf2 "\cf7 USD\cf2 ",\
+\cf6        
+\f0 \cf2 \},\
+
+\f2 \cf6        \cf3 sourceId
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 orderId\cf2 :\cf6  \cf3 newOrder
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 customerId\cf2 :\cf6  \cf3 newCustomer
+\f0 \cf2 .
+\f2 \cf3 id
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 autocomplete\cf2 :\cf6  \cf8 true
+\f0 \cf2 ,\
+
+\f2 \cf6        \cf3 locationId
+\f0 \cf2 ,\
+
+\f2 \cf6      
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f0 \cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf6      
+\f1\i \cf2 if
+\f2\i0 \cf6  ( \cf3 newPayment
+\f0 \cf2 .
+\f2 \cf3 status\cf6  \cf2 ===\cf6  \cf2 '\cf7 COMPLETED\cf2 '\cf6  ) 
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 res
+\f0 \cf2 .
+\f2 \cf5 status\cf6 (\cf9 200\cf6 )
+\f0 \cf2 .
+\f2 \cf5 json\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6          \cf3 customer\cf2 :\cf6  \cf3 newCustomer
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 order\cf2 :\cf6  \cf3 newOrder
+\f0 \cf2 ,\
+
+\f2 \cf6          \cf3 payment\cf2 :\cf6  \cf3 newPayment
+\f0 \cf2 ,\
+
+\f2 \cf6        
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6      
+\f0 \cf2 \}
+\f2 \cf6  
+\f1\i \cf2 else
+\f2\i0 \cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6        \cf3 res
+\f0 \cf2 .
+\f2 \cf5 status\cf6 (\cf9 402\cf6 )
+\f0 \cf2 .
+\f2 \cf5 json\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6          \cf3 message\cf2 :\cf6  \cf2 '\cf7 Payment failed\cf2 ',\
+\cf6        
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6      
+\f0 \cf2 \}\
+
+\f2 \cf6    
+\f0 \cf2 \}
+\f2 \cf6  
+\f1\i \cf2 catch
+\f2\i0 \cf6  (\cf3 error\cf6 ) 
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf3 console
+\f0 \cf2 .
+\f2 \cf5 log\cf6 (\cf3 error\cf6 )\cf2 ;\
+\cf6      \cf3 res
+\f0 \cf2 .
+\f2 \cf5 status\cf6 (\cf9 500\cf6 )
+\f0 \cf2 .
+\f2 \cf5 send\cf6 (\cf3 error\cf6 )\cf2 ;\
+\cf6    
+\f0 \cf2 \}\
+\pard\pardeftab708\ri-3940\partightenfactor0
+\cf3 \
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2 \cf2    
+\f1\i \cf11 // res.status(200).json(req.body);\
+\pard\pardeftab708\ri-3940\partightenfactor0
+
+\f2\i0 \cf6  
+\f0 \cf2 \}
+\f2 \cf6  
+\f1\i \cf2 else
+\f2\i0 \cf6  
+\f0 \cf2 \{\
+
+\f2 \cf6    \cf3 res
+\f0 \cf2 .
+\f2 \cf5 status\cf6 (\cf9 405\cf6 )
+\f0 \cf2 .
+\f2 \cf5 json\cf6 (
+\f0 \cf2 \{\
+
+\f2 \cf6      \cf3 error\cf2 :\cf6  \cf2 '\cf7 Method not allowed\cf2 ',\
+\cf6    
+\f0 \cf2 \}
+\f2 \cf6 )\cf2 ;\
+\cf6  
+\f0 \cf2 \}\
+\}
+\f2 ;\
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\f0\fs22 \cf0 \
+\
+\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f1\i\fs21 \cf2 try
+\f2\i0 \cf12  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f2 \cf12  \cf4 const\cf12  \cf6 response\cf12  \cf4 =\cf12  
+\f1\i \cf2 await
+\f2\i0 \cf12  client
+\f0 \cf2 .
+\f2 \cf12 devices
+\f0 \cf2 .
+\f2 \cf5 create_device_code\cf12 (body: 
+\f0 \cf2 \{\
+
+\f2 \cf12    idempotency_key\cf2 :\cf12  \cf2 '
+\f0 \cf7 \{\{
+\f2 CHA\'ceNE_AL\'c9ATOIRE\}\}\cf2 ',\
+\cf12    device_code\cf2 :\cf12  
+\f0 \cf2 \{\
+
+\f2 \cf12      name\cf2 :\cf12  \cf2 '\cf7 Comptoir 1\cf2 ',\
+\cf12      product_type\cf2 :\cf12  \cf2 '\cf7 TERMINAL_API\cf2 ',\
+\cf12      location_id\cf2 :\cf12  \cf2 '\cf7 B5E4484SHHNYH\cf2 ',\
+\cf12    
+\f0 \cf2 \}\
+
+\f2 \cf12  
+\f0 \cf2 \}
+\f2 \cf12 )\cf2 ;\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f0 \cf12 \
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f2 \cf12  console
+\f0 \cf2 .
+\f2 \cf5 log\cf12 (response
+\f0 \cf2 .
+\f2 \cf12 result)\cf2 ;\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f0 \cf2 \}
+\f2 \cf12  
+\f1\i \cf2 catch
+\f2\i0 \cf12  (error) 
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f2 \cf12  console
+\f0 \cf2 .
+\f2 \cf5 log\cf12 (error)\cf2 ;\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f0 \cf2 \}\cf12 \
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\fs22 \cf0 \
+\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f1\i\fs21 \cf2 try
+\f2\i0 \cf12  
+\f0 \cf2 \{\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f2 \cf12  \cf4 const\cf12  \cf6 response\cf12  \cf4 =\cf12  
+\f1\i \cf2 await
+\f2\i0 \cf12  client
+\f0 \cf2 .
+\f2 \cf12 terminalApi
+\f0 \cf2 .
+\f2 \cf5 createTerminalCheckout\cf12 (
+\f0 \cf2 \{\
+
+\f2 \cf12    idempotencyKey\cf2 :\cf12  \cf2 '\{\{\cf7 CHA\'ceNE_AL\'c9ATOIRE\}\}\cf2 ',\
+\cf12    checkout\cf2 :\cf12  
+\f0 \cf2 \{\
+
+\f2 \cf12      amountMoney\cf2 :\cf12  
+\f0 \cf2 \{\
+
+\f2 \cf12        amount\cf2 :\cf12  \cf9 100
+\f0 \cf2 ,\
+
+\f2 \cf12        currency\cf2 :\cf12  \cf2 '\cf7 EUR\cf2 '\
+\cf12      
+\f0 \cf2 \},\
+
+\f2 \cf12      note\cf2 :\cf12  \cf2 '\cf13 une note br\'e8ve',
+\f0 \cf2 \
+
+\f2 \cf12      deviceOptions\cf2 :\cf12  
+\f0 \cf2 \{\
+
+\f2 \cf12        deviceId\cf2 :\cf12  \cf2 '\cf7 R5WNWB5BKNG9R\cf2 ',\
+\cf12        skipReceiptScreen\cf2 :\cf12  \cf9 false
+\f0 \cf2 ,\
+
+\f2 \cf12        tipSettings\cf2 :\cf12  
+\f0 \cf2 \{\
+
+\f2 \cf12          allowTipping\cf2 :\cf12  \cf9 true
+\f0 \cf2 ,\
+
+\f2 \cf12          separateTipScreen\cf2 :\cf12  \cf9 true
+\f0 \cf2 ,\
+
+\f2 \cf12          customTipField\cf2 :\cf12  \cf9 false\
+\cf12        
+\f0 \cf2 \}\
+
+\f2 \cf12      
+\f0 \cf2 \}\
+
+\f2 \cf12    
+\f0 \cf2 \}\
+
+\f2 \cf12  
+\f0 \cf2 \}
+\f2 \cf12 )\cf2 ;\
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f0 \cf12 \
+\pard\pardeftab708\ri-3940\sl360\slmult1\partightenfactor0
+
+\f2 \cf12  console
+\f0 \cf2 .
+\f2 \cf5 log\cf12 (response
+\f0 \cf2 .
+\f2 \cf12 result)\cf2 ;\
+\}\cf12  
+\f1\i \cf2 catch
+\f2\i0 \cf12  (error) 
+\f0 \cf2 \{\
+
+\f2 \cf12  console
+\f0 \cf2 .
+\f2 \cf5 log\cf12 (error)\cf2 ;\
+\}\
+\pard\pardeftab708\ri-3940\sl276\slmult1\partightenfactor0
+
+\f0\fs22 \cf0 \
+\
+}
